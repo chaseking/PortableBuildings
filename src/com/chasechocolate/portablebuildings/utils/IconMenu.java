@@ -44,11 +44,7 @@ public class IconMenu implements Listener {
 
 	public void open(Player player) {
 		Inventory inventory = Bukkit.createInventory(player, size, name);
-		for (int i = 0; i < optionIcons.length; i++) {
-			if (optionIcons[i] != null) {
-				inventory.setItem(i, optionIcons[i]);
-			}
-		}
+		inventory.setContents(optionIcons);
 		player.openInventory(inventory);
 	}
 
@@ -72,12 +68,12 @@ public class IconMenu implements Listener {
 				handler.onOptionClick(e);
 				if (e.willClose()) {
 					final Player p = (Player) event.getWhoClicked();
-					Bukkit.getScheduler().scheduleSyncDelayedTask(plugin,
+					Bukkit.getScheduler().runTask(plugin,
 							new Runnable() {
 								public void run() {
 									p.closeInventory();
 								}
-							}, 1);
+							});
 				}
 				if (e.willDestroy()) {
 					destroy();
